@@ -44,7 +44,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employees);
     }
 
-    // build Get update employees rest api
+    // build  update employees rest api
     @PutMapping("{id}")
     public ResponseEntity<EmployeeDto> updateEmployee( @PathVariable("id") Long employeeId,@RequestBody EmployeeDto updateEmployee ){
 
@@ -53,6 +53,12 @@ public class EmployeeController {
 
 
     }
+    // build delete employee by id
+@DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeId){
+         employeeService.deleteEmployee(employeeId);
+         return ResponseEntity.ok("Employee delete successfully!");
 
+    }
 
 }
