@@ -2,6 +2,7 @@ package com.nada.ems.service.impl;
 
 import com.nada.ems.dto.EmployeeDto;
 import com.nada.ems.entity.Employee;
+import com.nada.ems.exception.ResourceNotFoundException;
 import com.nada.ems.mapper.EmployeeMapper;
 import com.nada.ems.repository.EmployeeRepository;
 import com.nada.ems.service.EmployeeService;
@@ -21,6 +22,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee= EmployeeMapper.mapToEmployee(employeeDto);
         Employee savedEmployee=employeeRepository.save(employee);
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
+        //nous avons d'implimenté la methode de creation d'employé
     }
-    //nous avons d'implimenté la methode de creation d'employé
+
+    @Override
+    public EmployeeDto getEmployeeById(Long employeeId) {
+
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee is not exist with given id:" + employeeId));
+
+        return EmployeeMapper.mapToEmployeeDto(employee);
+        //nous avons d'implimente la methode  get employee by id
+
+    }
 }
